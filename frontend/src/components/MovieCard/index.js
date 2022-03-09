@@ -1,21 +1,17 @@
-import MovieScore from "components/MovieScore";
+import MovieScore from "../MovieScore";
 import { Link } from "react-router-dom";
-import { Movie } from "types/movie";
 
 import './styles.css';
 
-type Props = {
-  movie: Movie
-}
 
-function MovieCard({ movie }: Props) {
+function MovieCard({ movie }) {
   return (
     <div className="container">
-      <img className="dsmovie-movie-card-image" src={movie.image} alt={movie.title} />
+      <img className="dsmovie-movie-card-image" src={movie.poster_image_url} alt={movie.title} />
       <div className="dsmovie-card-bottom-container">
         <br />
         <h3>{movie.title}</h3>
-        <MovieScore count={movie.count} score={movie.score} />
+        <MovieScore score={movie.critics_score} />
         <Link to={`/form/${movie.id}`}>
           <div className="btn btn-primary dsmovie-btn">Avaliar</div>
         </Link>

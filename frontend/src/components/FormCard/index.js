@@ -1,37 +1,29 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Movie } from 'types/movie';
-import { BASE_URL } from 'utils/requests';
-import { validateEmail } from 'utils/validate';
 import './styles.css';
 
-type Props = {
-  movieId: string;
-}
 
-function FormCard({ movieId }: Props) {
+
+function FormCard({ movieId }) {
   const navigate = useNavigate();
-  const [movie, setMovie] = useState<Movie>();
+  const [movie, setMovie] = useState();
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/movies/${movieId}`)
+    axios.get(`localhost:3000/movies/${movieId}`)
       .then(response => {
         setMovie(response.data);
       });
   })
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
-    const email = (event.target as any).email.value;
-    const score = (event.target as any).score.value;
+    const email = (event.target).email.value;
+    const score = (event.target).score.value;
     //console.log(email, score);
-    if (!validateEmail(email)) {
-      return;
-    }
 
-    const config: AxiosRequestConfig = {
-      baseURL: BASE_URL,
+    const config = {
+      baseURL: "localhost",
       method: 'PUT',
       url: '/scores',
       data: {

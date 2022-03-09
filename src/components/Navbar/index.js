@@ -8,11 +8,12 @@ function Navbar() {
       <nav className="container">
         <div className="dsmovie-nav-content">
           <Logo className='cinema' />
-          <h1>DSMovie</h1>
+          <a href="/">
+           <h1>Cloned Tomatoes</h1>
+          </a>
           <a href="https://github.com/limatainer" target="_blank" rel="noreferrer">
             <div className="dsmovie-contact-container">
-              <GithubIcon />
-              <p className="dsmovie-contact-link">/limatainer</p>
+              <p className="dsmovie-contact-link">With thanks to @limatainer.</p>
             </div>
           </a>
         </div>

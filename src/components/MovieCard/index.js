@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import './styles.css';
 
-
+// TODO add placeholder image for broken poster URLs
 function MovieCard({ movie }) {
   return (
     <div className="container">

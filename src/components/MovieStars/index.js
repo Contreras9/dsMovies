@@ -36,7 +36,7 @@ function Star({ fill }) {
     return <StarHalf />
   }
 }
-
+// TODO add click functionality here?
 function MovieStars({ score }) {
   const stars = score / 20;
   const fills = getFills(stars);

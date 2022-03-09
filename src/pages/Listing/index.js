@@ -13,7 +13,7 @@ function Listing() {
     number: 0,
     totalPages: 0
   })
-
+// TODO fix totalPages functionality
 
   const [movies, setMovies] = useState([])
 

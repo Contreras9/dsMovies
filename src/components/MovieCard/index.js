@@ -13,7 +13,7 @@ function MovieCard({ movie }) {
         <h3>{movie.title}</h3>
         <MovieScore score={movie.critics_score} />
         <Link to={`/form/${movie.id}`}>
-          <div className="btn btn-primary dsmovie-btn">Avaliar</div>
+          <div className="btn btn-primary dsmovie-btn">Review</div>
         </Link>
       </div>
       <br />

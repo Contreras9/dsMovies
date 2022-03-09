@@ -7,6 +7,7 @@ import Listing from './pages/Listing';
 import Form from './pages/Form';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import MoviePage from "./components/MoviePage";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
           <Route path="/" element={<Listing />} />
           <Route path="/form">
             <Route path=":movieId" element={<Form />} />
+          </Route>
+          <Route path="/movie">
+            <Route path=":movieId" element={<MoviePage />} />
           </Route>
         </Routes>
         <Footer />

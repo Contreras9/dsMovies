@@ -6,7 +6,7 @@ import './styles.css';
 // TODO add placeholder image for broken poster URLs
 function MoviePage({ movie }) {
   return (
-    <div className="container">
+    <div className="big-container">
       <img className="dsmovie-movie-card-image" src={movie.poster_image_url} alt={movie.title} />
       <div className="dsmovie-card-bottom-container">
         <br />

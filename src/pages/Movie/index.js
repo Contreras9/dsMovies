@@ -1,13 +1,16 @@
 import MoviePage from '../../components/MoviePage';
-import { useState, useEffect, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 
 function Movie() {
   const params = useParams();
+  const [movie, setMovie] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:9292/movies/${params.movieId}`)
     .then(r => r.json())
+    .then(data => setMovie(data))
   //     .then(response => {
   //       const data = response.data;
   //       setMovies(data);
@@ -20,9 +23,11 @@ function Movie() {
   //     })
   }, [])
 
+  console.log(movie)
+
   return (
-    <MoviePage movie={`${movie}`} />
+    <MoviePage movie={movie} />
   )
 }
 
-export default Form;
+export default Movie;

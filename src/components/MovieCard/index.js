@@ -15,8 +15,8 @@ function MovieCard({ movie }) {
         <Link to={`/movie/${movie.id}`}>
           <h3>{movie.title}</h3>
         </Link>
-        <MovieScore score={movie.critics_score} />
-        <Link to={`/form/${movie.id}`}>
+        <MovieScore score={movie.critics_score} runTime={movie.run_time}/>
+        <Link to={`/movie/${movie.id}`}>
           <div className="btn btn-primary dsmovie-btn">Review</div>
         </Link>
       </div>

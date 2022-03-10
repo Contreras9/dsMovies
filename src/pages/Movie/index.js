@@ -9,8 +9,24 @@ import './style.css'
 function Movie() {
   const params = useParams();
 
-  const [movieDetails, setMovieDetails] = useState({title: " ", actors: [], reviews: []})
+  const [movieDetails, setMovieDetails] = useState({title: " ", actors: [], reviews: [], positive_review_ratio: 0})
   const [registerCard, setRegisterCard] = useState(0)
+
+  function submitReview(event) {
+	  event.preventDefault()
+	  axios.post("http://localhost:9292/critic_by_name", {name : event.target[6].value})
+      .then(response => {
+        const critic = response.data;
+		console.log(critic);
+		axios.post("http://localhost:9292/reviews", {content : event.target[5].value, critic_id: critic.id, movie_id: movieDetails.id})
+		.then(response => {
+		  const review = response.data;
+		  console.log(review)
+		  setMovieDetails(movieDetails => { return {...movieDetails, reviews: [...movieDetails.reviews, review]}});
+		})
+      })
+
+  }
 
   useEffect(() => {
     axios.get(`http://localhost:9292/movies/${params.movieId}`)
@@ -30,14 +46,14 @@ function Movie() {
 	        	<div className="col-md-6">
 	        		<div id="slider" className="owl-carousel product-slider">
 						<div className="item">
-						  	<img src={movieDetails.poster_image_url}/>
+						  	<img src={movieDetails.poster_image_url} width="540px" height="810px"/>
 						</div>
 					</div>
 	        	</div>
 	        	<div className="col-md-6">
 	        		<div className="product-dtl">
         				<div className="product-info">
-		        			<div className="product-name">Variable Product</div>
+		        			<div className="product-name">Description</div>
 		        			<div className="reviews-counter">
 								<div className="rate">
 								    <input type="radio" id="star5" name="rate" value="5" checked />
@@ -53,18 +69,9 @@ function Movie() {
 								  </div>
 								<span>{movieDetails.reviews.length} Reviews</span>
 							</div>
-		        			<div className="product-price-discount"><span>$39.00</span><span className="line-through">$29.00</span></div>
+		        			<div className="product-price-discount"><span>{movieDetails.positive_review_ratio}</span></div>
 		        		</div>
 	        			<p>{movieDetails.description}</p>
-	        			<div className="product-count">
-	        				<label>Quantity</label>
-	        				<form action="#" className="display-flex">
-							    <div className="qtyminus">-</div>
-							    <input type="text" name="quantity" value="1" className="qty"/>
-							    <div className="qtyplus">+</div>
-							</form>
-							<a href="#" className="round-black-btn">Add to Cart</a>
-	        			</div>
 	        		</div>
 	        	</div>
 	        </div>
@@ -82,20 +89,24 @@ function Movie() {
 				  		<div className="review-heading">ACTORS</div>
               <hr/>
               <ul>
-                {movieDetails.actors.map(actor => (<li className="mb-20">{actor.name}</li>))}
+                {movieDetails.actors.map(actor => (
+					<p className="row"><hr/><div className="col-md-3"><img src={actor.profile_image_url} width="80px" height="80px"/><b style={{margin: "20px"}}>{actor.name}</b></div><div className="col-md-7">{actor.filmography_count} Films</div></p>
+				))}
               </ul>				  		
 				  	</div>
             <div className={"tab-pane fade " + ((registerCard === 1) ? "show active" : "")} id="review" role="tabpanel" aria-labelledby="review-tab">
 				  		<div className="review-heading">REVIEWS</div>
 
-              <hr/>  		
+        		
               { (movieDetails.reviews.length === 0) ? (<p className="mb-20">There are no reviews yet.</p>) : (
-                <ul>
-                    {movieDetails.reviews.map(review => (<li className="mb-20">{review.content}</li>))}
-                </ul> )
+                <div>
+                    {movieDetails.reviews.map(review => (
+					<p className="row"><hr/><div className="col-md-3"><img src={review.critic.image} width="80px" height="80px"/><b style={{margin: "20px"}}>{review.critic.name}</b></div><div className="col-md-7">{review.content}</div></p>
+					))}
+                </div> )
               }
               <hr/>
-				  		<form className="review-form">
+				  		<form className="review-form" onSubmit={submitReview}>
 		        			<div className="form-group">
 			        			<label>Your rating</label>
 			        			<div className="reviews-counter">
@@ -124,9 +135,6 @@ function Movie() {
 					        		</div>
 					        	</div>
 				        		<div className="col-md-6">
-				        			<div className="form-group">
-					        			<input type="text" name="" className="form-control" placeholder="Email Id*" />
-					        		</div>
 					        	</div>
 					        </div>
 					        <button className="round-black-btn">Submit Review</button>

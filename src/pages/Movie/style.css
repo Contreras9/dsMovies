@@ -11,7 +11,7 @@
     font-size: 12px;
     display: block;
     font-weight: 600;
-    color: #2e9ca1;
+    color: #d12d17;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -36,7 +36,7 @@
 .quote {
 	position: absolute;
     top: -23px;
-    color: #2e9da1;
+    color: #d12d17;
     font-size: 27px;
 }
 .name {

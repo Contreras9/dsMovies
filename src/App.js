@@ -7,7 +7,6 @@ import Listing from './pages/Listing';
 import Movie from './pages/Movie';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import MoviePage from "./components/MoviePage";
 
 function App() {
   return (
